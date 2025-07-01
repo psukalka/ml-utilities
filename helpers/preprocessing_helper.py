@@ -31,3 +31,26 @@ class PreprocessingHelper:
         ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [0])], remainder='passthrough')
         updated_X = np.array(ct.fit_transform(X))
         return updated_X
+    
+    @staticmethod
+    def label_encode(y):
+        from sklearn.preprocessing import LabelEncoder
+
+        le = LabelEncoder()
+        return le.fit_transform(y)
+    
+    @staticmethod
+    def split_data(X, y, test_size=0.2):
+        from sklearn.model_selection import train_test_split
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=1)
+        return X_train, X_test, y_train, y_test
+    
+    @staticmethod
+    def scale_feature(R_train, R_test, col_start=3):
+        from sklearn.preprocessing import StandardScaler
+
+        sc = StandardScaler()
+        R_train[:, col_start:] = sc.fit_transform(R_train[:, col_start:])
+        R_test[:, col_start:] = sc.transform(R_test[:, col_start:])
+        return R_train, R_test
