@@ -3,3 +3,4 @@
 venv
 local_settings.py
 .DS_Store
+*.png
