@@ -24,11 +24,11 @@ class PreprocessingHelper:
         return X
     
     @staticmethod
-    def one_hot_encode(X):
+    def one_hot_encode(X, column=0):
         from sklearn.compose import ColumnTransformer
         from sklearn.preprocessing import OneHotEncoder
 
-        ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [0])], remainder='passthrough')
+        ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [column])], remainder='passthrough')
         updated_X = np.array(ct.fit_transform(X))
         return updated_X
     
@@ -54,3 +54,10 @@ class PreprocessingHelper:
         R_train[:, col_start:] = sc.fit_transform(R_train[:, col_start:])
         R_test[:, col_start:] = sc.transform(R_test[:, col_start:])
         return R_train, R_test
+
+    @staticmethod
+    def compare_results_vertically(y_pred, y_test):
+        np.set_printoptions(precision=2)
+        print(np.concatenate((y_pred.reshape(len(y_pred), 1),
+                              y_test.reshape(len(y_test), 1)),
+                              axis=1))
