@@ -8,9 +8,9 @@ class PreprocessingHelper:
         return dataset
 
     @staticmethod
-    def get_x_y(file_name='Data.csv'):
+    def get_x_y(file_name='Data.csv', feature_range=slice(None, -1)):
         dataset = PreprocessingHelper.import_dataset(file_name)
-        X = dataset.iloc[:, :-1].values
+        X = dataset.iloc[:, feature_range].values
         y = dataset.iloc[:, -1].values
         return X, y
     
