@@ -34,3 +34,4 @@ python -m scripts.data_preprocessing
 - We don't need to apply feature scaling in multiple linear regression as the coefficients take care of it
 - With sklearn library you don't need to worry about dummy variable trap 
 - We don't need to work on BE technique as the sklearn model selects variables with highest P-values 
+- Polynomial linear regression is called `linear` because of linearity of its coefficients
