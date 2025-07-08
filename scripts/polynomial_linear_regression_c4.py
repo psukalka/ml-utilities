@@ -12,11 +12,14 @@ def polynomial_linear_regression():
     print(f"--- Training LR model ---")
     lin_reg = rh.train_with_linear_regressor(X, y)
     print(f"--- Train with Polynomial regression ---")
-    poly_reg = rh.train_with_poly_regressor(X, y)
+    poly_reg, poly_features = rh.train_with_poly_regressor(X, y, degree=4)
     print(f"--- Visualizing Linear Regression ---")
     visualize_lin_reg(X, y, lin_reg)
     print(f"--- Visualizing Polynomial Regression ---")
     visualize_poly_reg(X, y, poly_reg)
+    print(f"--- Predicting with Linear and Polynomial regression ---")
+    print(f"Linear prediction: {lin_reg.predict([[6.5]])}")
+    print(f"Polynomial prediction: {poly_reg.predict(poly_features.transform([[6.5]]))}")
 
 
 def visualize_lin_reg(X, y, lin_reg):
@@ -30,7 +33,8 @@ def visualize_lin_reg(X, y, lin_reg):
 
 def visualize_poly_reg(X, y, poly_reg):
     plt.scatter(X, y, color='red')
-    plt.plot(X, poly_reg.predict(rh.get_polynomial_features(X)), color='blue')
+    X_poly, poly_features = rh.get_polynomial_features(X, degree=4)
+    plt.plot(X, poly_reg.predict(X_poly), color='blue')
     plt.title('Truth or Bluff (Polynomial Regression)')
     plt.xlabel('Position Level')
     plt.ylabel('Salary')

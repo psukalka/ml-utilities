@@ -20,10 +20,11 @@ class RegressionHelper:
     @staticmethod
     def get_polynomial_features(X, degree=2):
         poly_features = PolynomialFeatures(degree=degree)
-        return poly_features.fit_transform(X)
+        X_poly = poly_features.fit_transform(X)
+        return X_poly, poly_features
 
     @staticmethod
     def train_with_poly_regressor(X_train, y_train, degree=2):
-        X_poly = RegressionHelper.get_polynomial_features(X_train, degree=degree)
+        X_poly, poly_features = RegressionHelper.get_polynomial_features(X_train, degree=degree)
         poly_reg = RegressionHelper.train_with_linear_regressor(X_poly, y_train)
-        return poly_reg
+        return poly_reg, poly_features
