@@ -47,13 +47,15 @@ class PreprocessingHelper:
         return X_train, X_test, y_train, y_test
     
     @staticmethod
-    def scale_feature(R_train, R_test, col_start=3):
+    def scale_feature(R, sc=None, col_start=0):
         from sklearn.preprocessing import StandardScaler
 
-        sc = StandardScaler()
-        R_train[:, col_start:] = sc.fit_transform(R_train[:, col_start:])
-        R_test[:, col_start:] = sc.transform(R_test[:, col_start:])
-        return R_train, R_test
+        if sc is None:
+            sc = StandardScaler()
+            R[:, col_start:] = sc.fit_transform(R[:, col_start:])
+        else:
+            R[:, col_start:] = sc.transform(R[:, col_start:])
+        return R, sc
 
     @staticmethod
     def compare_results_vertically(y_pred, y_test):
@@ -61,3 +63,7 @@ class PreprocessingHelper:
         print(np.concatenate((y_pred.reshape(len(y_pred), 1),
                               y_test.reshape(len(y_test), 1)),
                               axis=1))
+        
+    @staticmethod
+    def horizontal_to_vertical(y):
+        return y.reshape(len(y), 1)

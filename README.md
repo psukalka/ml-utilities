@@ -35,3 +35,4 @@ python -m scripts.data_preprocessing
 - With sklearn library you don't need to worry about dummy variable trap 
 - We don't need to work on BE technique as the sklearn model selects variables with highest P-values 
 - Polynomial linear regression is called `linear` because of linearity of its coefficients
+- In Support Vector Regression (SVR), we don't have coefficients with features that would balance out their scale, hence feature scaling is needed.
