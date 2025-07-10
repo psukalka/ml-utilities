@@ -1,5 +1,6 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
+from sklearn.svm import SVR
 
 class RegressionHelper:
     @staticmethod
@@ -28,3 +29,9 @@ class RegressionHelper:
         X_poly, poly_features = RegressionHelper.get_polynomial_features(X_train, degree=degree)
         poly_reg = RegressionHelper.train_with_linear_regressor(X_poly, y_train)
         return poly_reg, poly_features
+    
+    @staticmethod
+    def train_with_svr(scaled_X_train, scaled_y_train, kernel='rbf'):
+        regressor = SVR(kernel=kernel)
+        regressor.fit(scaled_X_train, scaled_y_train)
+        return regressor

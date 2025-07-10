@@ -47,14 +47,20 @@ class PreprocessingHelper:
         return X_train, X_test, y_train, y_test
     
     @staticmethod
-    def scale_feature(R, sc=None, col_start=0):
+    def scale_feature(R, sc=None, col_start=None):
         from sklearn.preprocessing import StandardScaler
 
         if sc is None:
             sc = StandardScaler()
-            R[:, col_start:] = sc.fit_transform(R[:, col_start:])
+            if col_start:
+                R[:, col_start:] = sc.fit_transform(R[:, col_start:])
+            else:
+                R = sc.fit_transform(R)
         else:
-            R[:, col_start:] = sc.transform(R[:, col_start:])
+            if col_start:
+                R[:, col_start:] = sc.transform(R[:, col_start:])
+            else:
+                R = sc.transform(R)
         return R, sc
 
     @staticmethod
