@@ -1,6 +1,7 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor
 
 class RegressionHelper:
     @staticmethod
@@ -35,3 +36,9 @@ class RegressionHelper:
         regressor = SVR(kernel=kernel)
         regressor.fit(scaled_X_train, scaled_y_train)
         return regressor
+
+    @staticmethod
+    def train_with_dtr(X, y):
+        reg = DecisionTreeRegressor(random_state=0)
+        reg.fit(X, y)
+        return reg
